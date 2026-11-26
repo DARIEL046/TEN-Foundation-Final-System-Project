@@ -45,11 +45,12 @@ export const findById = async (id) => {
     return rows[0] || null;
 };
 
-export const fetchToday = async () => {
+export const fetchToday = async (date = null) => {
     const [rows] = await pool.query(
         `SELECT ${COLUMNS} FROM ${FROM}
-         WHERE DATE(a.time_in) = CURDATE()
-         ORDER BY COALESCE(a.time_out, a.time_in) DESC, a.id DESC`
+         WHERE DATE(a.time_in) = DATE(COALESCE(?, CURDATE()))
+         ORDER BY COALESCE(a.time_out, a.time_in) DESC, a.id DESC`,
+        [date]
     );
     return rows;
 };
@@ -64,4 +65,24 @@ export const findTodayRecord = async (workerId) => {
         [workerId]
     );
     return rows[0] || null;
+};
+
+
+// 1.2.2 Attendance summary for today
+export const fetchTodaySummary = async (date = null) => {
+    const [[counts]] = await pool.query(
+        `SELECT
+            (SELECT COUNT(*) FROM worker) AS registeredWorkers,
+            COUNT(*) AS totalSessions,
+            COALESCE(SUM(time_out IS NULL), 0) AS activeNow
+         FROM attendance
+         WHERE DATE(time_in) = DATE(COALESCE(?, CURDATE()))`,
+        [date]
+    );
+
+    return {
+        registeredWorkers: Number(counts.registeredWorkers),
+        activeNow: Number(counts.activeNow),
+        totalSessions: Number(counts.totalSessions),
+    };
 };

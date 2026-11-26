@@ -8,6 +8,7 @@ const workerRoutes = express.Router();
 workerRoutes.use(requireAuth);
 
 workerRoutes.get('/all', workerController.fetchAllWorkers);
+workerRoutes.get('/attendance/today', workerController.fetchAttendanceToday);
 workerRoutes.post('/', workerController.registerWorker);
 workerRoutes.delete('/:workerId', workerController.deleteWorker);
 

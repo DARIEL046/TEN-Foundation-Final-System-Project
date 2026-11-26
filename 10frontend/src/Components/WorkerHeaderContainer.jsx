@@ -1,6 +1,6 @@
 /* DARIEL */
 
-const WorkerHeaderContainer = ({ activeTab = "qr", onNavigate, onLogout }) => {
+const WorkerHeaderContainer = ({ activeTab = "qr", onTabChange, onLogout }) => {
   return (
     <header className="admin-bar">
       <div className="admin-brand">
@@ -15,11 +15,20 @@ const WorkerHeaderContainer = ({ activeTab = "qr", onNavigate, onLogout }) => {
         <button
           type="button"
           className={`nav-btn${activeTab === "qr" ? " active" : ""}`}
-          onClick={() => activeTab !== "qr" && onNavigate("/admin")}
+          onClick={() => onTabChange("qr")}
           aria-current={activeTab === "qr" ? "page" : undefined}
         >
           QR Codes
         </button>
+
+        <button
+    type="button"
+    className={`nav-btn${activeTab === "attendance" ? " active" : ""}`}
+    onClick={() => onTabChange("attendance")}
+    aria-current={activeTab === "attendance" ? "page" : undefined}
+  >
+    Attendance
+  </button>
       </nav>
 
       <button type="button" className="logout" onClick={onLogout}>

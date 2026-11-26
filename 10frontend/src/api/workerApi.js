@@ -36,3 +36,6 @@ export const registerWorker = (name) =>
 
 export const deleteWorker = (workerId) =>
   request(`/worker/${encodeURIComponent(workerId)}`, { method: "DELETE" });
+
+export const fetchAttendanceToday = (date) =>
+  request(date ? `/worker/attendance/today?date=${encodeURIComponent(date)}` : "/worker/attendance/today");

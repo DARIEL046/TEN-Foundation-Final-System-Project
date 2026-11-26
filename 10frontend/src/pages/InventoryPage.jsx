@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BAG_URL, INVENTORY_LOGIN_URL } from "../api/bagApi";
 import InventoryMain from "../Components/InventoryMain";
 import InventoryShipment from "../Components/InventoryShipment"; // ADDED - 2.1.2 Record Bag Shipments
+import ShipmentHistory from "../Components/ShipmentHistory"; // ADDED - 2.2.1 View Shipment History
 import "../StyleInventory.css";
 
 function InventoryPage() {
@@ -11,6 +12,9 @@ function InventoryPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bags, setBags] = useState([]);
+
+  // ADDED - 2.2.1: which tab is open: "inventory" (bags + shipments) or "history"
+  const [tab, setTab] = useState("inventory");
 
   async function loadBags() {
     try {
@@ -81,6 +85,7 @@ function InventoryPage() {
     setBags([]);
     setEmail("");
     setPassword("");
+    setTab("inventory"); // ADDED - 2.2.1: next login starts on the first tab
   }
 
   // Not logged in -> inventory login form
@@ -88,6 +93,7 @@ function InventoryPage() {
     return (
       <section className="inventory">
         <h1>Inventory</h1>
+
         <div className="card">
           <h2>Inventory Admin Login</h2>
           <form onSubmit={handleLogin}>
@@ -119,14 +125,45 @@ function InventoryPage() {
     <section className="inventory">
       <h1>Bag Inventory</h1>
       <div className="menu">
-        <span></span>
+        <div className="menu">
+          {/* ADDED - 2.2.1: tab buttons. The open tab is the colored one */}
+          <span>
+            <button
+              className={
+                tab === "inventory" ? "buttonTab" : "buttonTab buttonGray"
+              }
+              onClick={() => setTab("inventory")}
+            >
+              {" "}
+              Inventory{" "}
+            </button>
+            <button
+              className={
+                tab === "history" ? "buttonTab" : "buttonTab buttonGray"
+              }
+              onClick={() => setTab("history")}
+            >
+              {" "}
+              Shipment History
+            </button>
+          </span>
+        </div>
         <button className="buttonTab buttonGray" onClick={handleLogout}>
-          Logout
+          {" "}
+          Logout{" "}
         </button>
       </div>
-      <InventoryMain bags={bags} loadBags={handleBagsChanged} />
-      {/* ADDED - 2.1.2 Record Bag Shipments */}
-      <InventoryShipment key={shipmentVersion} onShipped={loadBags} />{" "}
+      {/* First tab: 2.1.1 bag records + 2.1.2 shipment form */}
+      {tab === "inventory" && (
+        <>
+          <InventoryMain bags={bags} loadBags={handleBagsChanged} />
+          {/* ADDED - 2.1.2 Record Bag Shipments */}
+          <InventoryShipment key={shipmentVersion} onShipped={loadBags} />
+        </>
+      )}
+
+      {/* ADDED - 2.2.1: second tab = shipment history */}
+      {tab === "history" && <ShipmentHistory bags={bags} />}
     </section>
   );
 }

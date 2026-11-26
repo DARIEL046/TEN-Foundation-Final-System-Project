@@ -27,7 +27,7 @@ function InventoryShipment({ onShipped }) {
   const [destination, setDestination] = useState("");
   const [message, setMessage] = useState(null); // { type: "ok" | "bad", text }
 
-  // Runs ONCE when the page opens (the [] at the end means "only once")
+  // Runs ONCE when the page opens
   useEffect(() => {
     let cancelled = false;
 
@@ -83,7 +83,7 @@ function InventoryShipment({ onShipped }) {
       });
       const result = await response.json();
 
-      // The backend said no (for example: not enough stock)
+      // The backend said no)
       if (!response.ok) {
         setMessage({ type: "bad", text: result.message });
         return;

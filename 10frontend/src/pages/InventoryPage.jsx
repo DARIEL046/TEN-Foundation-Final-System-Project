@@ -125,9 +125,8 @@ function InventoryPage() {
         </button>
       </div>
       <InventoryMain bags={bags} loadBags={handleBagsChanged} />
-
       {/* ADDED - 2.1.2 Record Bag Shipments */}
-      <InventoryShipment key={shipmentVersion} onShipped={loadBags} />
+      <InventoryShipment key={shipmentVersion} onShipped={loadBags} />{" "}
     </section>
   );
 }

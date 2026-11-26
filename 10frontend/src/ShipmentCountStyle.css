@@ -1,0 +1,73 @@
+/* 2.2.2 COUNT DESIGN */
+
+.shipmentCount {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.shipmentCount h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.shipmentCount .countBig {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+/* Progress bar */
+.shipmentCount .countBar {
+  width: 100%;
+  height: 14px;
+  background: #e0e0e0;
+  border-radius: 7px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.shipmentCount .countFill {
+  height: 100%;
+  background: #2e7d32;
+}
+
+/* Start New Batch row */
+.shipmentCount .countReset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.shipmentCount .countReset input {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #c9c9c9;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* Green / red message */
+.shipmentCount .countMessage {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.shipmentCount .countMessage.ok {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid #a5d6a7;
+}
+
+.shipmentCount .countMessage.bad {
+  background: #fdecea;
+  color: #b71c1c;
+  border: 1px solid #f5a5a5;
+}

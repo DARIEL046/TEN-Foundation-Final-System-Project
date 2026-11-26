@@ -3,6 +3,7 @@ import { BAG_URL, INVENTORY_LOGIN_URL } from "../api/bagApi";
 import InventoryMain from "../Components/InventoryMain";
 import InventoryShipment from "../Components/InventoryShipment"; // ADDED - 2.1.2 Record Bag Shipments
 import ShipmentHistory from "../Components/ShipmentHistory"; // ADDED - 2.2.1 View Shipment History
+import ShipmentCount from "../Components/ShipmentCount"; // ADDED - 2.2.2 Manage Shipment Count
 import "../StyleInventory.css";
 
 function InventoryPage() {
@@ -162,8 +163,14 @@ function InventoryPage() {
         </>
       )}
 
-      {/* ADDED - 2.2.1: second tab = shipment history */}
-      {tab === "history" && <ShipmentHistory bags={bags} />}
+      {/* ADDED for 2.2.1: second tab = shipment history */}
+      {tab === "history" && (
+        <>
+          <ShipmentCount bags={bags} />{" "}
+          {/* ADDED for 2.2.2 Manage Shipment Count */}
+          <ShipmentHistory bags={bags} />
+        </>
+      )}
     </section>
   );
 }

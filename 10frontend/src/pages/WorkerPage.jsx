@@ -7,6 +7,7 @@ import WorkerFormContainer from "../Components/WorkerFormContainer";
 import WorkerListContainer from "../Components/WorkerListContainer";
 import { fetchWorkers, registerWorker, deleteWorker } from "../api/workerApi";
 import { clearToken } from "../utils/auth";
+import AttendanceContainer from "../Components/AttendanceContainer";
 import {
   loadWorkers,
   saveWorkers,
@@ -20,6 +21,7 @@ const WorkerPage = () => {
   // Show the workers saved in localStorage right away
   const [workers, setWorkers] = useState(loadWorkers);
   const [notice, setNotice] = useState("");
+  const [activeTab, setActiveTab] = useState("qr");
 
   // ADD - ADMIN - QR
   const [query, setQuery] = useState("");
@@ -99,11 +101,14 @@ const WorkerPage = () => {
   return (
     <div className="admin">
       <WorkerHeaderContainer
-        activeTab="qr"
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
         onNavigate={(path) => navigate(path)}
         onLogout={handleLogout}
       />
       <main className="admin-content">
+        {activeTab === "qr" ? (
+          <>
         <WorkerFormContainer
           onRegister={handleRegister}
           query={query}
@@ -116,6 +121,10 @@ const WorkerPage = () => {
           notice={notice}
           onDelete={handleDelete}
         />
+        </>
+        ) : (
+          <AttendanceContainer />
+        )}
       </main>
     </div>
   );

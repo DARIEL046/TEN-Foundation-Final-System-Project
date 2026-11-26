@@ -1,0 +1,42 @@
+.admin .att-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+.admin .att-stat {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 22px 24px; background: var(--card);
+  border: 1px solid var(--line); border-top: 5px solid var(--navy);
+  border-radius: 16px; box-shadow: 0 24px 44px -34px rgba(143, 11, 32, 0.55);
+}
+.admin .att-stat-active { border-top-color: #176b34; }
+.admin .att-stat-value { font-family: var(--font-head); font-size: 2.6rem; font-weight: 800; line-height: 1; color: var(--navy-dark); }
+.admin .att-stat-active .att-stat-value { color: #176b34; }
+.admin .att-stat-label { color: var(--muted); font-weight: 600; }
+
+.admin .att-table-card {
+  overflow-x: auto; background: var(--card);
+  border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: 0 24px 44px -34px rgba(143, 11, 32, 0.55);
+}
+.admin .att-table { width: 100%; border-collapse: collapse; }
+.admin .att-table th, .admin .att-table td { padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--line); }
+.admin .att-table tbody tr:last-child td { border-bottom: 0; }
+.admin .att-table th { color: var(--muted); font-size: 0.9rem; font-weight: 600; background: var(--paper); }
+
+.admin .att-name { display: block; font-weight: 700; overflow-wrap: anywhere; }
+.admin .att-id { display: block; margin-top: 2px; font-size: 0.85rem; color: var(--muted); }
+
+.admin .att-badge { display: inline-block; padding: 2px 14px; border-radius: 999px; font-size: 0.9rem; font-weight: 700; }
+.admin .att-badge-in { background: #d4edda; color: #176b34; }
+.admin .att-badge-out { background: #dce8ff; color: #24549a; }
+
+@media (max-width: 700px) { .admin .att-stats { grid-template-columns: 1fr; } }
+
+
+
+.admin .att-head { flex-wrap: wrap; }
+.admin .att-date { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.admin .att-date label { margin: 0; color: var(--muted); font-weight: 600; }
+.admin .att-date input[type="date"] { padding: 8px 12px; font: inherit; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+.admin .att-date input[type="date"]:hover { border-color: var(--navy); }
+.admin .att-date input[type="date"]:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.15); }
+.admin .att-today-btn { padding: 8px 14px; border: 1px solid var(--navy); border-radius: 8px; background: var(--navy); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.admin .att-today-btn:hover { background: var(--navy-dark); border-color: var(--navy-dark); }

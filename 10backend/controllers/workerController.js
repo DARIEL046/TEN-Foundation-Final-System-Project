@@ -1,5 +1,5 @@
 import * as workerService from '../services/workerService.js';
-
+import * as attendanceModel from '../models/attendanceModels.js';
 export const fetchAllWorkers = async (req, res) => {
     try {
         const workers = await workerService.fetchAllWorkers();
@@ -47,3 +47,30 @@ export const deleteWorker = async (req, res) => {
         });
     }
 }
+
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+/* 1.2.2 Attendance summary for the admin Attendance tab */
+export const fetchAttendanceToday = async (req, res) => {
+    try {
+
+        const date = req.query.date ? String(req.query.date) : null;
+        if (date && (!DATE_PATTERN.test(date) || Number.isNaN(Date.parse(date)))) {
+            return res.status(400).json({ error: "Invalid date." });
+        }
+
+        const summary = await attendanceModel.fetchTodaySummary(date);
+        const rows = await attendanceModel.fetchToday(date);
+
+        // No Time Out = IN, has Time Out = OUT
+        const records = rows.map((r) => ({
+            ...r,
+            status: r.timeOut ? 'OUT' : 'IN'
+        }));
+
+        res.status(200).json({ success: true, ...summary, records });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Something went wrong. Please try again." });
+    }
+};
